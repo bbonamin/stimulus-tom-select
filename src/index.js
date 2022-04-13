@@ -7,6 +7,7 @@ export default class extends Controller {
   };
 
   connect() {
+    this.options = this.optionsValue;
     this.initTomSelect();
   }
 
@@ -18,7 +19,7 @@ export default class extends Controller {
 
   initTomSelect() {
     if (this.element) {
-      this.select = new TomSelect(this.element, this.optionsValue);
+      this.select = new TomSelect(this.element, this.options);
     }
   }
 }

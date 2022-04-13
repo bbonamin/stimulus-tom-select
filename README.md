@@ -74,18 +74,59 @@ wget -o tom-select.css https://cdn.jsdelivr.net/npm/tom-select@2.0.1/dist/css/to
 
 ## Extension
 
-With inheritance, it's possible to extend this controller:
+With inheritance, it's possible to extend this controller, e.g. to implement a "remote tom-select" controller:
 
-```javascript
-// app/javascript/controllers/my_controller.js
+```js
+// app/javascript/controllers/remote_tom_select.js
+
 import StimulusTomSelect from "stimulus-tom-select";
 
 export default class extends StimulusTomSelect {
-  connect() {
-    super.connect();
-    console.log("hello world");
+  static values = {
+    value: String,
+    label: String,
+    path: String,
+  };
+
+  initTomSelect() {
+    this.options = {
+      valueField: this.valueValue,
+      labelField: this.labelValue,
+      searchField: this.labelValue,
+      maxItems: 1,
+      load: (query, callback) => {
+        if (!query.length) return callback();
+        $.ajax({
+          url: `${this.pathValue}${encodeURIComponent(query)}`,
+          type: "GET",
+          error: () => callback(),
+          success: (res) => callback(res),
+        });
+      },
+      ...this.optionsValue,
+    };
+    super.initTomSelect();
   }
 }
+
+// app/javascript/controllers/index.js
+import RemoteTomSelect from "./remote_tom_select";
+application.register("remote-tom-select", RemoteTomSelect);
+```
+
+And use it like so:
+
+```html
+<input
+  type="text"
+  name="q[my_input_name]"
+  id="q_my_input_name"
+  tabindex="-1"
+  data-controller="remote-tom-select"
+  data-remote-tom-select-value-value="name"
+  data-remote-tom-select-label-value="name"
+  data-remote-tom-select-path-value="/people.json?name="
+/>
 ```
 
 ## Contributing

@@ -3,6 +3,7 @@ export default class _default {
         options: ObjectConstructor;
     };
     connect(): void;
+    options: any;
     disconnect(): void;
     initTomSelect(): void;
     select: any;
