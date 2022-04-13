@@ -1,0 +1,41 @@
+{
+  "name": "stimulus-tom-select",
+  "version": "0.2.0",
+  "description": "A Stimulus wrapper of the tom-select library",
+  "source": "src/index.js",
+  "exports": "./dist/stimulus-tom-select.modern.js",
+  "main": "./dist/stimulus-tom-select.cjs",
+  "module": "./dist/stimulus-tom-select.module.js",
+  "unpkg": "./dist/stimulus-tom-select.umd.js",
+  "typings": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbonamin/stimulus-tom-select.git"
+  },
+  "author": "Bruno Bonamin <bruno@bonamin.org>",
+  "contributors": [],
+  "license": "MIT",
+  "private": false,
+  "amdName": "StimulusTomSelect",
+  "keywords": [
+    "stimulus",
+    "stimulusjs",
+    "tom-select",
+    "selectize"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "yarn build",
+    "build": "microbundle src/index.js --globals @hotwired/stimulus=Stimulus"
+  },
+  "volta": {
+    "node": "16.14.2"
+  },
+  "devDependencies": {
+    "microbundle": "^0.14.2"
+  },
+  "peerDependencies": {
+    "@hotwired/stimulus": ">2",
+    "tom-select": ">=2.0.1 <3"
+  }
+}
